@@ -6,6 +6,7 @@
 import api from './api';
 import { v4 as uuidv4 } from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import logger from '../utils/logger';
 
 const analyticsService = {
   sessionId: uuidv4(),

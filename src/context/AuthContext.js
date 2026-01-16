@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setIsSignout(true);
       } catch (error) {
-        console.log('Logout error:', error);
+        logger.error('Logout error:', error);
       } finally {
         setIsLoading(false);
       }
