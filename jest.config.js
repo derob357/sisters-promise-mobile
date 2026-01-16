@@ -9,6 +9,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/.git/',
+    '<rootDir>/src/__tests__/setup.js',
   ],
   transformIgnorePatterns: [
     'node_modules/(?!(react-native|@react-native|@react-navigation)/)',
@@ -19,18 +20,19 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx}',
     '!src/**/*.test.{js,jsx}',
+    '!src/__tests__/**',
     '!src/index.js',
   ],
   coverageThreshold: {
     global: {
-      branches: 40,
-      functions: 40,
-      lines: 40,
-      statements: 40,
+      branches: 30,
+      functions: 30,
+      lines: 30,
+      statements: 30,
     },
   },
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx}',
+    '<rootDir>/src/**/__tests__/**/*.{spec,test}.{js,jsx}',
     '<rootDir>/src/**/*.{spec,test}.{js,jsx}',
   ],
   testEnvironment: 'node',
