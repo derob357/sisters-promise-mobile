@@ -4,6 +4,7 @@
 
 import React, { createContext, useState, useEffect } from 'react';
 import cartService from '../services/cartService';
+import logger from '../utils/logger';
 
 export const CartContext = createContext();
 
@@ -11,6 +12,7 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const [cartError, setCartError] = useState(null);
 
   // Load cart on mount
   useEffect(() => {
@@ -27,7 +29,8 @@ export const CartProvider = ({ children }) => {
       setCartCount(count);
       setCartTotal(total);
     } catch (error) {
-      console.log('Load cart error:', error);
+      logger.error('Load cart error:', error);
+      setCartError('Failed to load cart');
     }
   };
 
@@ -35,6 +38,8 @@ export const CartProvider = ({ children }) => {
     cart,
     cartCount,
     cartTotal,
+    cartError,
+    clearCartError: () => setCartError(null),
     addToCart: async (product, quantity) => {
       try {
         const updatedCart = await cartService.addToCart(product, quantity);
@@ -49,7 +54,8 @@ export const CartProvider = ({ children }) => {
         await cartService.removeFromCart(productId);
         await loadCart();
       } catch (error) {
-        console.log('Remove from cart error:', error);
+        logger.error('Remove from cart error:', error);
+        setCartError('Failed to remove item');
       }
     },
     updateQuantity: async (productId, quantity) => {
@@ -57,7 +63,8 @@ export const CartProvider = ({ children }) => {
         await cartService.updateQuantity(productId, quantity);
         await loadCart();
       } catch (error) {
-        console.log('Update quantity error:', error);
+        logger.error('Update quantity error:', error);
+        setCartError('Failed to update quantity');
       }
     },
     clearCart: async () => {
@@ -65,7 +72,8 @@ export const CartProvider = ({ children }) => {
         await cartService.clearCart();
         await loadCart();
       } catch (error) {
-        console.log('Clear cart error:', error);
+        logger.error('Clear cart error:', error);
+        setCartError('Failed to clear cart');
       }
     },
   };

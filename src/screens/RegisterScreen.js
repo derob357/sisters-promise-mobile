@@ -14,6 +14,15 @@ import {
 import { AuthContext } from '../context/AuthContext';
 import { Button, ErrorMessage } from '../components/CommonComponents';
 
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validatePassword = (password) => {
+  return password.length >= 8;
+};
+
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,18 +33,28 @@ const RegisterScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
 
   const handleRegister = async () => {
-    if (!name || !email || !password || !confirmPassword) {
+    const trimmedEmail = email.trim();
+    const trimmedName = name.trim();
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedPassword || !trimmedConfirmPassword) {
       setError('Please fill in all fields');
       return;
     }
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
+    if (!validateEmail(trimmedEmail)) {
+      setError('Please enter a valid email address');
       return;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+    if (!validatePassword(trimmedPassword)) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+
+    if (trimmedPassword !== trimmedConfirmPassword) {
+      setError('Passwords do not match');
       return;
     }
 

@@ -25,7 +25,7 @@ const analyticsService = {
         });
       }
     } catch (error) {
-      console.log('Analytics init error:', error);
+      logger.error('Analytics init error:', error);
     }
   },
 
@@ -43,7 +43,7 @@ const analyticsService = {
         },
       });
     } catch (error) {
-      console.log('Analytics event error:', error);
+      logger.error('Analytics event error:', error);
     }
   },
 
@@ -66,7 +66,7 @@ const analyticsService = {
         userType,
       });
     } catch (error) {
-      console.log('Signup analytics error:', error);
+      logger.error('Signup analytics error:', error);
     }
   },
 
@@ -80,7 +80,7 @@ const analyticsService = {
         sessionId: analyticsService.sessionId,
       });
     } catch (error) {
-      console.log('Purchase analytics error:', error);
+      logger.error('Purchase analytics error:', error);
     }
   },
 
@@ -97,7 +97,7 @@ const analyticsService = {
         category,
       });
     } catch (error) {
-      console.log('Product view analytics error:', error);
+      logger.error('Product view analytics error:', error);
     }
   },
 
@@ -114,7 +114,7 @@ const analyticsService = {
         quantity,
       });
     } catch (error) {
-      console.log('Add to cart analytics error:', error);
+      logger.error('Add to cart analytics error:', error);
     }
   },
 
@@ -129,7 +129,7 @@ const analyticsService = {
         results_count: resultsCount,
       });
     } catch (error) {
-      console.log('Search analytics error:', error);
+      logger.error('Search analytics error:', error);
     }
   },
 
@@ -143,7 +143,7 @@ const analyticsService = {
         subscriptionType,
       });
     } catch (error) {
-      console.log('Email subscription analytics error:', error);
+      logger.error('Email subscription analytics error:', error);
     }
   },
 
@@ -156,7 +156,7 @@ const analyticsService = {
         formName,
       });
     } catch (error) {
-      console.log('Form submission analytics error:', error);
+      logger.error('Form submission analytics error:', error);
     }
   },
 
@@ -167,7 +167,7 @@ const analyticsService = {
     try {
       await AsyncStorage.setItem('analyticsUserProperties', JSON.stringify(properties));
     } catch (error) {
-      console.log('Analytics user properties error:', error);
+      logger.error('Analytics user properties error:', error);
     }
   },
 };
