@@ -7,6 +7,7 @@ import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-nati
 import { CartContext } from '../context/CartContext';
 import { CartItem, Header, Button, Spinner } from '../components/CommonComponents';
 import analyticsService from '../services/analyticsService';
+import logger from '../utils/logger';
 
 const CartScreen = ({ navigation }) => {
   const { cart, cartTotal, removeFromCart, updateQuantity } = useContext(CartContext);
@@ -34,7 +35,7 @@ const CartScreen = ({ navigation }) => {
       // Navigate to checkout
       navigation.navigate('Checkout', { cart, total: cartTotal });
     } catch (error) {
-      console.log('Checkout error:', error);
+      logger.error('Checkout error:', error);
     } finally {
       setLoading(false);
     }

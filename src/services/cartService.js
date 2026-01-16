@@ -4,6 +4,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import logger from '../utils/logger';
 
 const CART_KEY = 'sisters_promise_cart';
 
@@ -16,7 +17,7 @@ const cartService = {
       const cart = await AsyncStorage.getItem(CART_KEY);
       return cart ? JSON.parse(cart) : [];
     } catch (error) {
-      console.log('Get cart error:', error);
+      logger.error('Get cart error:', error);
       return [];
     }
   },
@@ -44,7 +45,7 @@ const cartService = {
       await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));
       return cart;
     } catch (error) {
-      console.log('Add to cart error:', error);
+      logger.error('Add to cart error:', error);
       throw error;
     }
   },
@@ -59,7 +60,7 @@ const cartService = {
       await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));
       return cart;
     } catch (error) {
-      console.log('Remove from cart error:', error);
+      logger.error('Remove from cart error:', error);
       throw error;
     }
   },
@@ -82,7 +83,7 @@ const cartService = {
 
       return cart;
     } catch (error) {
-      console.log('Update quantity error:', error);
+      logger.error('Update quantity error:', error);
       throw error;
     }
   },
@@ -95,7 +96,7 @@ const cartService = {
       await AsyncStorage.removeItem(CART_KEY);
       return [];
     } catch (error) {
-      console.log('Clear cart error:', error);
+      logger.error('Clear cart error:', error);
       throw error;
     }
   },
@@ -108,7 +109,7 @@ const cartService = {
       const cart = await cartService.getCart();
       return cart.reduce((total, item) => total + item.price * item.quantity, 0);
     } catch (error) {
-      console.log('Get cart total error:', error);
+      logger.error('Get cart total error:', error);
       return 0;
     }
   },
@@ -121,7 +122,7 @@ const cartService = {
       const cart = await cartService.getCart();
       return cart.reduce((count, item) => count + item.quantity, 0);
     } catch (error) {
-      console.log('Get cart count error:', error);
+      logger.error('Get cart count error:', error);
       return 0;
     }
   },

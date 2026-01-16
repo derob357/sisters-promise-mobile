@@ -16,6 +16,7 @@ import { CartContext } from '../context/CartContext';
 import { Header, Button, ErrorMessage, CartItem, Spinner } from '../components/CommonComponents';
 import analyticsService from '../services/analyticsService';
 import api from '../services/api';
+import logger from '../utils/logger';
 
 const CheckoutScreen = ({ route, navigation }) => {
   const { cart, total } = route.params || {};
@@ -83,7 +84,7 @@ const CheckoutScreen = ({ route, navigation }) => {
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Checkout failed. Please try again.');
-      console.log('Checkout error:', err);
+      logger.error('Checkout error:', err);
     } finally {
       setLoading(false);
     }

@@ -92,18 +92,35 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        // Production signing configuration for CI/CD builds
+        release {
+            // Use environment variables: RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD
+            storeFile System.getenv("RELEASE_STORE_FILE") ? file(System.getenv("RELEASE_STORE_FILE")) : file('debug.keystore')
+            storePassword System.getenv("RELEASE_STORE_PASSWORD") ?: 'android'
+            keyAlias System.getenv("RELEASE_KEY_ALIAS") ?: 'androiddebugkey'
+            keyPassword System.getenv("RELEASE_KEY_PASSWORD") ?: 'android'
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            debuggable true
+            minifyEnabled false
         }
         release {
-            // IMPORTANT: For production, generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android
-            // For CI/CD builds: Use environment variables RELEASE_STORE_FILE, RELEASE_STORE_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD
-            signingConfig signingConfigs.debug
+            // For GitHub Actions CI/CD: Set environment variables before building
+            // export RELEASE_STORE_FILE="/path/to/release.keystore"
+            // export RELEASE_STORE_PASSWORD="your-password"
+            // export RELEASE_KEY_ALIAS="your-alias"
+            // export RELEASE_KEY_PASSWORD="your-key-password"
+            // Then run: ./gradlew assembleRelease
+            signingConfig signingConfigs.release
+            debuggable false
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            
+            // Optimize and shrink the APK
+            shrinkResources true
         }
     }
 }

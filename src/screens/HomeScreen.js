@@ -15,6 +15,7 @@ import {
 import { ProductCard, Spinner, ErrorMessage } from '../components/CommonComponents';
 import productService from '../services/productService';
 import analyticsService from '../services/analyticsService';
+import logger from '../utils/logger';
 
 const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
@@ -42,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
       setCategories(['All', ...new Set(productsData.map((p) => p.category))]);
     } catch (err) {
       setError('Failed to load products');
-      console.log('Load products error:', err);
+      logger.error('Load products error:', err);
     } finally {
       setLoading(false);
     }
