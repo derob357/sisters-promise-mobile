@@ -14,10 +14,8 @@ const API_BASE_URL = process.env.API_BASE_URL || 'https://localhost:443/api';
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
-  httpsAgent: {
-    // For development only - accept self-signed certificates
-    rejectUnauthorizedCerts: false,
-  },
+  // Note: httpsAgent doesn't work in React Native
+  // For development with self-signed certs, configure at native level
 });
 
 // Add token to requests
@@ -26,10 +24,6 @@ api.interceptors.request.use(
     const token = await AsyncStorage.getItem('authToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    }
-    // Force HTTPS for security
-    if (config.url && !config.url.startsWith('https')) {
-      config.url = config.url.replace(/^http:/, 'https:');
     }
     return config;
   },

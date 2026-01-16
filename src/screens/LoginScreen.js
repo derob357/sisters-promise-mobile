@@ -10,10 +10,18 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
 } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { Button, ErrorMessage } from '../components/CommonComponents';
+
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validatePassword = (password) => {
+  return password.length >= 8;
+};
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -23,14 +31,31 @@ const LoginScreen = ({ navigation }) => {
   const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    // Trim whitespace
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    // Check for empty fields
+    if (!trimmedEmail || !trimmedPassword) {
       setError('Please fill in all fields');
+      return;
+    }
+
+    // Validate email format
+    if (!validateEmail(trimmedEmail)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+
+    // Validate password length
+    if (!validatePassword(trimmedPassword)) {
+      setError('Password must be at least 8 characters');
       return;
     }
 
     setLoading(true);
     setError('');
-    const result = await login(email, password);
+    const result = await login(trimmedEmail, trimmedPassword);
 
     if (!result.success) {
       setError(result.error);

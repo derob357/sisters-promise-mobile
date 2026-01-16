@@ -5,6 +5,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import authService from '../services/authService';
 import analyticsService from '../services/analyticsService';
+import logger from '../utils/logger';
 
 export const AuthContext = createContext();
 
@@ -24,7 +25,7 @@ export const AuthProvider = ({ children }) => {
           await analyticsService.init();
         }
       } catch (error) {
-        console.log('Bootstrap error:', error);
+        logger.log('Bootstrap error:', error);
       } finally {
         setIsLoading(false);
       }
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         const response = await authService.login(email, password);
         setUser(response.user);
         setIsSignout(false);
-        await analyticsService.trackEvent('user_login', { email });
+        await analyticsService.trackEvent('user_login', { userId: response.user.id });
         return { success: true };
       } catch (error) {
         return { success: false, error: error.error || 'Login failed' };
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }) => {
         const response = await authService.register(email, password, name);
         setUser(response.user);
         setIsSignout(false);
-        await analyticsService.trackSignup(email, 'standard');
+        await analyticsService.trackSignup(response.user.id, 'standard');
         return { success: true };
       } catch (error) {
         return { success: false, error: error.error || 'Registration failed' };

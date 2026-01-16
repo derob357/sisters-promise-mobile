@@ -20,7 +20,6 @@ const analyticsService = {
         const user = JSON.parse(userData);
         analyticsService.setUserProperties({
           userId: user.id,
-          userEmail: user.email,
           userType: user.role,
         });
       }
@@ -59,10 +58,10 @@ const analyticsService = {
   /**
    * Track user signup
    */
-  trackSignup: async (email, userType = 'standard') => {
+  trackSignup: async (userId, userType = 'standard') => {
     try {
       await api.post('/analytics/signup', {
-        email,
+        userId,
         userType,
       });
     } catch (error) {
