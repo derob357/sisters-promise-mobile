@@ -21,9 +21,12 @@ export const CartProvider = ({ children }) => {
 
   const loadCart = async () => {
     try {
-      const cartData = await cartService.getCart();
-      const count = await cartService.getCartCount();
-      const total = await cartService.getCartTotal();
+      // Optimize: Use Promise.all for parallel requests instead of sequential
+      const [cartData, count, total] = await Promise.all([
+        cartService.getCart(),
+        cartService.getCartCount(),
+        cartService.getCartTotal(),
+      ]);
 
       setCart(cartData);
       setCartCount(count);

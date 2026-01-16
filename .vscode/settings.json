@@ -1,0 +1,30 @@
+{
+  "gradle.enable": false,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.import.gradle.enabled": true,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "node_modules": true,
+    ".gradle": true,
+    "build": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "node_modules": true,
+    ".gradle": true,
+    "build": true,
+    "android/build": true,
+    "ios/build": true
+  }
+}

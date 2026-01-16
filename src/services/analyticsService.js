@@ -136,11 +136,12 @@ const analyticsService = {
   /**
    * Track email subscription
    */
-  trackEmailSubscription: async (email, subscriptionType = 'newsletter') => {
+  trackEmailSubscription: async (subscriptionType = 'newsletter') => {
     try {
+      // Don't track raw email - GDPR/CCPA compliance
       await api.post('/analytics/email-subscription', {
-        email,
         subscriptionType,
+        timestamp: new Date().toISOString(),
       });
     } catch (error) {
       logger.error('Email subscription analytics error:', error);
@@ -161,11 +162,17 @@ const analyticsService = {
   },
 
   /**
-   * Set user properties
+   * Set user properties - no PII (GDPR/CCPA compliant)
    */
   setUserProperties: async (properties) => {
     try {
-      await AsyncStorage.setItem('analyticsUserProperties', JSON.stringify(properties));
+      // Only store non-PII properties
+      const safeProperties = {
+        userId: properties.userId,
+        userType: properties.userType,
+        // Remove: userEmail, email, phone, address
+      };
+      await AsyncStorage.setItem('analyticsUserProperties', JSON.stringify(safeProperties));
     } catch (error) {
       logger.error('Analytics user properties error:', error);
     }
