@@ -5,7 +5,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from '../screens/HomeScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
@@ -75,7 +75,7 @@ export const AppNavigator = () => {
             iconName = focused ? 'person' : 'person-outline';
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: '#999',
