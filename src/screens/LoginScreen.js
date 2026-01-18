@@ -35,31 +35,39 @@ const LoginScreen = ({ navigation }) => {
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
 
+    console.log('[LoginScreen] Login attempt with:', trimmedEmail);
+
     // Check for empty fields
     if (!trimmedEmail || !trimmedPassword) {
       setError('Please fill in all fields');
+      console.log('[LoginScreen] Empty fields error');
       return;
     }
 
     // Validate email format
     if (!validateEmail(trimmedEmail)) {
       setError('Please enter a valid email address');
+      console.log('[LoginScreen] Invalid email format');
       return;
     }
 
     // Validate password length
     if (!validatePassword(trimmedPassword)) {
       setError('Password must be at least 8 characters');
+      console.log('[LoginScreen] Password too short');
       return;
     }
 
     setLoading(true);
     setError('');
+    console.log('[LoginScreen] Calling AuthContext.login...');
     const result = await login(trimmedEmail, trimmedPassword);
 
+    console.log('[LoginScreen] Login result:', result);
     if (!result.success) {
       setError(result.error);
       setLoading(false);
+      console.error('[LoginScreen] Login failed:', result.error);
     }
   };
 

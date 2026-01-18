@@ -9,15 +9,18 @@ import NetInfo from '@react-native-community/netinfo';
 import logger from '../utils/logger';
 
 // Base URL - uses HTTPS for encrypted communication
-// For development with self-signed certs, rejectUnauthorizedCerts handles it
-const API_BASE_URL = process.env.API_BASE_URL || 'https://localhost:443/api';
+// For iOS Simulator: 127.0.0.1 routes to host Mac
+// For physical device: use your-local-ip
+const API_BASE_URL = process.env.API_BASE_URL || 'https://127.0.0.1:443/api';
+
+console.log('[API] Configured base URL:', API_BASE_URL);
 
 // Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
-  // Note: httpsAgent doesn't work in React Native
-  // For development with self-signed certs, configure at native level
+  timeout: 15000,
+  // For development: allow self-signed certificates
+  rejectUnauthorizedCerts: false,
 });
 
 // Add token to requests
@@ -43,16 +46,31 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    // Log detailed error information
+    console.error('[API Error]', {
+      message: error.message,
+      code: error.code,
+      status: error.response?.status,
+      url: error.config?.url,
+      method: error.config?.method,
+    });
+    
     // Handle network errors
     if (!error.response) {
       if (error.message === 'Network Error' || error.code === 'ECONNABORTED') {
-        logger.error('Network error:', error);
-        return Promise.reject(new Error('Network error. Please check your connection.'));
+        logger.error('Network error - timeout:', error.message);
+        return Promise.reject(new Error('Network timeout. Please check your connection and try again.'));
       }
-      if (error.code === 'ENOTFOUND') {
-        logger.error('Server not reachable:', error);
-        return Promise.reject(new Error('Server not reachable. Please try again later.'));
+      if (error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED') {
+        logger.error('Cannot reach server:', error.message);
+        return Promise.reject(new Error(`Cannot reach server at ${API_BASE_URL}. Is the backend running?`));
       }
+      if (error.message.includes('certificate')) {
+        logger.error('Certificate error:', error.message);
+        return Promise.reject(new Error('SSL Certificate Error - This is expected for localhost development'));
+      }
+      logger.error('Network error:', error);
+      return Promise.reject(new Error('Network error. Please try again.'));
     }
 
     if (error.response?.status === 401) {

@@ -28,11 +28,13 @@ const authService = {
    */
   login: async (email, password) => {
     try {
+      console.log('[authService] Attempting login for:', email);
       const response = await api.post('/users/login', {
         email,
         password,
       });
 
+      console.log('[authService] Login successful');
       if (response.data.token) {
         await AsyncStorage.setItem('authToken', response.data.token);
         await AsyncStorage.setItem('userData', JSON.stringify(response.data.user));
@@ -40,7 +42,8 @@ const authService = {
 
       return response.data;
     } catch (error) {
-      throw error.response?.data || { error: 'Login failed' };
+      console.error('[authService] Login error:', error.message, error.response?.data);
+      throw error.response?.data || { error: 'Login failed: ' + error.message };
     }
   },
 

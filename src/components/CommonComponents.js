@@ -12,6 +12,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
+import { getSafeImageSource, getProductImageUrl } from '../utils/imageUtil';
 
 // Header Component
 export const Header = ({ title, onBackPress, rightComponent }) => (
@@ -54,41 +55,50 @@ export const TextInput = ({ placeholder, value, onChangeText, style, ...props })
 );
 
 // Product Card
-export const ProductCard = ({ product, onPress }) => (
-  <TouchableOpacity style={styles.productCard} onPress={onPress}>
-    {product.image && (
-      <Image source={{ uri: product.image }} style={styles.productImage} />
-    )}
-    <View style={styles.productInfo}>
-      <Text style={styles.productName}>{product.name}</Text>
-      <Text style={styles.productCategory}>{product.category}</Text>
-      <Text style={styles.productPrice}>${product.price.toFixed(2)}</Text>
-    </View>
-  </TouchableOpacity>
-);
+export const ProductCard = ({ product, onPress }) => {
+  const imageUrl = getProductImageUrl(product);
+  const imageSource = imageUrl ? getSafeImageSource(imageUrl) : null;
+
+  return (
+    <TouchableOpacity style={styles.productCard} onPress={onPress}>
+      {imageSource && (
+        <Image source={imageSource} style={styles.productImage} />
+      )}
+      <View style={styles.productInfo}>
+        <Text style={styles.productName}>{product.name}</Text>
+        <Text style={styles.productCategory}>{product.category}</Text>
+        <Text style={styles.productPrice}>${product.price.toFixed(2)}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 // Cart Item Component
-export const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
-  <View style={styles.cartItem}>
-    {item.image && <Image source={{ uri: item.image }} style={styles.cartItemImage} />}
-    <View style={styles.cartItemInfo}>
-      <Text style={styles.cartItemName}>{item.name}</Text>
-      <Text style={styles.cartItemPrice}>${item.price.toFixed(2)}</Text>
-      <View style={styles.quantityControl}>
-        <TouchableOpacity onPress={() => onUpdateQuantity(item.id, item.quantity - 1)}>
-          <Text style={styles.quantityButton}>−</Text>
-        </TouchableOpacity>
-        <Text style={styles.quantity}>{item.quantity}</Text>
-        <TouchableOpacity onPress={() => onUpdateQuantity(item.id, item.quantity + 1)}>
-          <Text style={styles.quantityButton}>+</Text>
-        </TouchableOpacity>
+export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
+  const imageSource = item.image ? getSafeImageSource(item.image) : null;
+
+  return (
+    <View style={styles.cartItem}>
+      {imageSource && <Image source={imageSource} style={styles.cartItemImage} />}
+      <View style={styles.cartItemInfo}>
+        <Text style={styles.cartItemName}>{item.name}</Text>
+        <Text style={styles.cartItemPrice}>${item.price.toFixed(2)}</Text>
+        <View style={styles.quantityControl}>
+          <TouchableOpacity onPress={() => onUpdateQuantity(item.id, item.quantity - 1)}>
+            <Text style={styles.quantityButton}>−</Text>
+          </TouchableOpacity>
+          <Text style={styles.quantity}>{item.quantity}</Text>
+          <TouchableOpacity onPress={() => onUpdateQuantity(item.id, item.quantity + 1)}>
+            <Text style={styles.quantityButton}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+      <TouchableOpacity onPress={() => onRemove(item.id)} style={styles.removeButton}>
+        <Text style={styles.removeButtonText}>✕</Text>
+      </TouchableOpacity>
     </View>
-    <TouchableOpacity onPress={() => onRemove(item.id)} style={styles.removeButton}>
-      <Text style={styles.removeButtonText}>✕</Text>
-    </TouchableOpacity>
-  </View>
-);
+  );
+};
 
 // Loading Spinner
 export const Spinner = () => (

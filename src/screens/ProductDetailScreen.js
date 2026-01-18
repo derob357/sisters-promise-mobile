@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { CartContext } from '../context/CartContext';
 import { Button, Header, SuccessMessage } from '../components/CommonComponents';
+import { getSafeImageSource, getProductImageUrl } from '../utils/imageUtil';
 import analyticsService from '../services/analyticsService';
 
 const ProductDetailScreen = ({ route, navigation }) => {
@@ -43,7 +44,12 @@ const ProductDetailScreen = ({ route, navigation }) => {
 
       {addedToCart && <SuccessMessage message="Added to cart!" />}
 
-      {product.image && <Image source={{ uri: product.image }} style={styles.image} />}
+      {getSafeImageSource(getProductImageUrl(product)) && (
+        <Image
+          source={getSafeImageSource(getProductImageUrl(product))}
+          style={styles.image}
+        />
+      )}
 
       <View style={styles.content}>
         <Text style={styles.category}>{product.category}</Text>
