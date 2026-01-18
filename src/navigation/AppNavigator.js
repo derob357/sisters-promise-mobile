@@ -2,10 +2,11 @@
  * App Navigation Stack (Authenticated Users)
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../context/AuthContext';
 
 import HomeScreen from '../screens/HomeScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
@@ -13,6 +14,9 @@ import CartScreen from '../screens/CartScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import BlogScreen from '../screens/BlogScreen';
+import AdminDashboardScreen from '../screens/AdminDashboardScreen';
+import OrderManagementScreen from '../screens/OrderManagementScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,6 +31,19 @@ const HomeStack = () => {
     >
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const BlogStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#FFF' },
+      }}
+    >
+      <Stack.Screen name="BlogScreen" component={BlogScreen} />
     </Stack.Navigator>
   );
 };
@@ -60,7 +77,26 @@ const ProfileStack = () => {
   );
 };
 
+const AdminStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#FFF' },
+      }}
+    >
+      <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+      <Stack.Screen name="OrderManagement" component={OrderManagementScreen} />
+    </Stack.Navigator>
+  );
+};
+
 export const AppNavigator = () => {
+  const { user } = useContext(AuthContext);
+
+  // Check if user has admin or owner role
+  const isAdmin = user?.role === 'admin' || user?.role === 'owner';
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -69,10 +105,14 @@ export const AppNavigator = () => {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Blog') {
+            iconName = focused ? 'newspaper' : 'newspaper-outline';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart' : 'cart-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Admin') {
+            iconName = focused ? 'shield' : 'shield-outline';
           }
 
           return <Icon name={iconName} size={size} color={color} />;
@@ -97,6 +137,13 @@ export const AppNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="Blog"
+        component={BlogStack}
+        options={{
+          tabBarLabel: 'Blog',
+        }}
+      />
+      <Tab.Screen
         name="Cart"
         component={CartStack}
         options={{
@@ -110,6 +157,15 @@ export const AppNavigator = () => {
           tabBarLabel: 'Profile',
         }}
       />
+      {isAdmin && (
+        <Tab.Screen
+          name="Admin"
+          component={AdminStack}
+          options={{
+            tabBarLabel: 'Admin',
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 };
