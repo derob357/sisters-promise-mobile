@@ -8,11 +8,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import logger from '../utils/logger';
 
-// Base URL - uses HTTPS for encrypted communication
-// For iOS Simulator: 127.0.0.1 routes to host Mac
-// For physical device: use your-local-ip
+// Base URL for API communication
+// For iOS Simulator: localhost routes to host Mac
+// For physical device: use your machine's local IP
 // Note: Backend routes don't have /api prefix (e.g., /users/login not /api/users/login)
-const API_BASE_URL = 'https://127.0.0.1:443';
+// Using HTTP for local development to avoid self-signed certificate issues
+const API_BASE_URL = __DEV__ ? 'http://localhost:3000' : 'https://your-production-domain.com';
 
 console.log('[API] Configured base URL:', API_BASE_URL);
 
