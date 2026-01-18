@@ -321,6 +321,8 @@ PODS:
     - React-Core
   - react-native-netinfo (11.4.1):
     - React-Core
+  - react-native-restart (0.0.27):
+    - React-Core
   - react-native-safe-area-context (5.6.2):
     - React-Core
   - React-NativeModulesApple (0.72.13):
@@ -474,6 +476,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-config (from `../node_modules/react-native-config`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -551,6 +554,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-config"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-restart:
+    :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -624,6 +629,7 @@ SPEC CHECKSUMS:
   React-logger: c3a0ff270a52e0051489f1f29a5de047ba7e8ca0
   react-native-config: 97ffff0aec29e12269f4dd2d41c6669c0056c7aa
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
+  react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: e48706fb09fde89f82e12bfb49b140cfdcb761f7
   React-NativeModulesApple: 83cd035f454ac54f4f72ce7b01c34054fa6d60f8
   React-perflogger: de3900e86d8a4d896999b08e0b130ad8b83ebf11
