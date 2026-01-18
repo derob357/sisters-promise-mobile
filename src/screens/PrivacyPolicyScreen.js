@@ -3,14 +3,13 @@
  */
 
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { Header } from '../components/CommonComponents';
 
 const PrivacyPolicyScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title="Privacy Policy" onBackPress={() => navigation.goBack()} />
-
       <ScrollView style={styles.content}>
         <Text style={styles.lastUpdated}>Last updated: January 15, 2026</Text>
 
@@ -163,7 +162,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
 
         <View style={styles.spacer} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

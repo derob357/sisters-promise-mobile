@@ -12,12 +12,14 @@ const authService = {
    */
   register: async (email, password, name) => {
     try {
-      const response = await api.post('/users/register', {
+      const response = await api.post('/api/users/register', {
         email,
         password,
-        name,
+        firstName: name,
       });
-      return response.data;
+      // Handle both new and old response formats
+      const userData = response.data.data?.user || response.data.user || response.data;
+      return { ...response.data, user: userData };
     } catch (error) {
       throw error.response?.data || { error: 'Registration failed' };
     }
@@ -29,7 +31,7 @@ const authService = {
   login: async (email, password) => {
     try {
       console.log('[authService] Attempting login for:', email);
-      const response = await api.post('/users/login', {
+      const response = await api.post('/api/users/login', {
         email,
         password,
       });
@@ -52,7 +54,7 @@ const authService = {
    */
   getProfile: async () => {
     try {
-      const response = await api.get('/users/profile');
+      const response = await api.get('/api/users/profile');
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch profile' };
@@ -64,7 +66,7 @@ const authService = {
    */
   changePassword: async (currentPassword, newPassword) => {
     try {
-      const response = await api.post('/users/change-password', {
+      const response = await api.post('/api/users/change-password', {
         currentPassword,
         newPassword,
       });

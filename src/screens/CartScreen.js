@@ -3,7 +3,7 @@
  */
 
 import React, { useContext, useState } from 'react';
-import { View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { CartContext } from '../context/CartContext';
 import { CartItem, Header, Button, Spinner } from '../components/CommonComponents';
 import analyticsService from '../services/analyticsService';
@@ -46,7 +46,7 @@ const CartScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title="Shopping Cart" onBackPress={() => navigation.goBack()} />
 
       {cart.length === 0 ? (
@@ -95,7 +95,7 @@ const CartScreen = ({ navigation }) => {
           </View>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

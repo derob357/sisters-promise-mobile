@@ -11,6 +11,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import { CartContext } from '../context/CartContext';
 import { Header, Button, ErrorMessage, CartItem, Spinner } from '../components/CommonComponents';
@@ -41,6 +42,11 @@ const CheckoutScreen = ({ route, navigation }) => {
     setError('');
 
     try {
+      // Create order - split fullName into firstName/lastName
+      const nameParts = fullName.trim().split(/\s+/);
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+
       // Create order
       const response = await api.post('/api/orders', {
         items: cart.map((item) => ({
@@ -48,22 +54,24 @@ const CheckoutScreen = ({ route, navigation }) => {
           quantity: item.quantity,
           price: item.price,
         })),
-        shippingInfo: {
-          fullName,
-          email,
-          phone,
-          address,
-          city,
-          state,
-          zip,
-        },
-        totalAmount: total,
+        total,
+        email,
+        firstName,
+        lastName,
+        phone,
+        address,
+        city,
+        state,
+        zip,
       });
 
       if (response.data.success) {
+        // Get orderId from response (handle both formats)
+        const orderId = response.data.data?.orderId || response.data.orderId || response.data.order?.id;
+        
         // Track order
         await analyticsService.trackEvent('order_completed', {
-          orderId: response.data.orderId,
+          orderId: orderId,
           amount: total,
           itemCount: cart.length,
         });
@@ -106,8 +114,9 @@ const CheckoutScreen = ({ route, navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Header title="Checkout" onBackPress={() => navigation.goBack()} />
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Header title="Checkout" onBackPress={() => navigation.goBack()} />
 
       {error && <ErrorMessage message={error} />}
 
@@ -220,7 +229,8 @@ const CheckoutScreen = ({ route, navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -228,6 +238,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   content: {
     padding: 16,

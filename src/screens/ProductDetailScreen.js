@@ -11,6 +11,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import { CartContext } from '../context/CartContext';
 import { Button, Header, SuccessMessage } from '../components/CommonComponents';
@@ -39,8 +40,9 @@ const ProductDetailScreen = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Header title={product.name} onBackPress={() => navigation.goBack()} />
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Header title={product.name} onBackPress={() => navigation.goBack()} />
 
       {addedToCart && <SuccessMessage message="Added to cart!" />}
 
@@ -125,7 +127,8 @@ const ProductDetailScreen = ({ route, navigation }) => {
           textStyle={styles.buyNowText}
         />
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

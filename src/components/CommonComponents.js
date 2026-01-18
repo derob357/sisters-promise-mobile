@@ -2,7 +2,7 @@
  * Common Components - Header, Buttons, Cards, etc.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -54,6 +54,50 @@ export const TextInput = ({ placeholder, value, onChangeText, style, ...props })
   </View>
 );
 
+// Safe Image Component - handles loading and errors gracefully
+export const SafeImage = ({ source, style, resizeMode = 'cover', placeholder = true }) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  if (!source || !source.uri) {
+    // No valid image, show placeholder
+    return (
+      <View style={[styles.productImage, style, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#F0F0F0' }]}>
+        <Text style={{ color: '#999', fontSize: 12 }}>No image</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={[style, styles.imageContainer]}>
+      {loading && placeholder && (
+        <ActivityIndicator 
+          size="small" 
+          color="#4CAF50" 
+          style={StyleSheet.absoluteFill} 
+        />
+      )}
+      <Image
+        source={source}
+        style={[style, { backgroundColor: error ? '#F0F0F0' : 'transparent' }]}
+        resizeMode={resizeMode}
+        onLoadStart={() => setLoading(true)}
+        onLoadEnd={() => setLoading(false)}
+        onError={(error) => {
+          console.warn('[SafeImage] Image load error:', error.error);
+          setError(true);
+          setLoading(false);
+        }}
+      />
+      {error && (
+        <View style={[StyleSheet.absoluteFill, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#F0F0F0' }]}>
+          <Text style={{ color: '#999', fontSize: 12 }}>Image failed</Text>
+        </View>
+      )}
+    </View>
+  );
+};
+
 // Product Card
 export const ProductCard = ({ product, onPress }) => {
   const imageUrl = getProductImageUrl(product);
@@ -61,9 +105,11 @@ export const ProductCard = ({ product, onPress }) => {
 
   return (
     <TouchableOpacity style={styles.productCard} onPress={onPress}>
-      {imageSource && (
-        <Image source={imageSource} style={styles.productImage} />
-      )}
+      <SafeImage 
+        source={imageSource} 
+        style={styles.productImage}
+        placeholder={true}
+      />
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{product.name}</Text>
         <Text style={styles.productCategory}>{product.category}</Text>
@@ -79,7 +125,11 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }) => {
 
   return (
     <View style={styles.cartItem}>
-      {imageSource && <Image source={imageSource} style={styles.cartItemImage} />}
+      <SafeImage 
+        source={imageSource} 
+        style={styles.cartItemImage}
+        placeholder={false}
+      />
       <View style={styles.cartItemInfo}>
         <Text style={styles.cartItemName}>{item.name}</Text>
         <Text style={styles.cartItemPrice}>${item.price.toFixed(2)}</Text>
@@ -187,6 +237,9 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 14,
     color: '#333',
+  },
+  imageContainer: {
+    overflow: 'hidden',
   },
   productCard: {
     backgroundColor: '#FFF',

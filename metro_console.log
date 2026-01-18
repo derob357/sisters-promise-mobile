@@ -1,0 +1,39 @@
+
+> SistersPromiseMobile@0.0.1 start
+> react-native start
+
+● Validation Warning:
+
+  Unknown option "server.forwardClientLogs" with value true was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+● Validation Warning:
+
+  Unknown option "watcher.unstable_lazySha1" with value true was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+● Validation Warning:
+
+  Unknown option "watcher.unstable_workerThreads" with value false was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+● Validation Warning:
+
+  Unknown option "watcher.unstable_autoSaveCache" with value {"debounceMs": 5000, "enabled": true} was found.
+  This is probably a typing mistake. Fixing it will remove this message.
+
+
+                        ▒▒▓▓▓▓▒▒
+                     ▒▓▓▓▒▒░░▒▒▓▓▓▒
+                  ▒▓▓▓▓░░░▒▒▒▒░░░▓▓▓▓▒
+                 ▓▓▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▓▓
+                 ▓▓░░░░░▒▓▓▓▓▓▓▒░░░░░▓▓
+                 ▓▓░░▓▓▒░░░▒▒░░░▒▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▒▒▒▒▓▓▓▓▒░░▓▓
+                 ▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▒░░▓▓
+                 ▓▓▒░░▒▒▓▓▓▓▓▓▓▓▒░░░▒▓▓
+                  ▒▓▓▓▒░░░▒▓▓▒░░░▒▓▓▓▒
+                     ▒▓▓▓▒░░░░▒▓▓▓▒
+                        ▒▒▓▓▓▓▒▒
+
+

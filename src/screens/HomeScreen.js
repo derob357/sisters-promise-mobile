@@ -11,6 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  SafeAreaView,
 } from 'react-native';
 import { ProductCard, Spinner, ErrorMessage } from '../components/CommonComponents';
 import productService from '../services/productService';
@@ -38,12 +39,28 @@ const HomeScreen = ({ navigation }) => {
     setError('');
     try {
       const productsData = await productService.getProducts();
-      setProducts(productsData);
-      // Initialize categories
-      setCategories(['All', ...new Set(productsData.map((p) => p.category))]);
+      
+      // Ensure productsData is an array
+      const validProducts = Array.isArray(productsData) ? productsData : [];
+      
+      if (validProducts.length === 0) {
+        setProducts([]);
+        setCategories(['All']);
+      } else {
+        setProducts(validProducts);
+        // Initialize categories - safely extract and validate
+        const uniqueCategories = new Set(validProducts
+          .filter(p => p && p.category) // Filter out null/undefined products
+          .map((p) => p.category)
+        );
+        setCategories(['All', ...Array.from(uniqueCategories)]);
+      }
     } catch (err) {
+      console.error('Load products error:', err);
       setError('Failed to load products');
       logger.error('Load products error:', err);
+      setProducts([]);
+      setCategories(['All']);
     } finally {
       setLoading(false);
     }
@@ -58,10 +75,22 @@ const HomeScreen = ({ navigation }) => {
     setLoading(true);
     try {
       const results = await productService.search(searchQuery);
-      setProducts(results);
-      await analyticsService.trackSearch(searchQuery, results.length);
+      
+      // Ensure results is an array
+      const validResults = Array.isArray(results) ? results : [];
+      
+      setProducts(validResults);
+      
+      // Track search with validation
+      if (analyticsService && analyticsService.trackSearch) {
+        await analyticsService.trackSearch(searchQuery, validResults.length).catch(err => 
+          console.error('Error tracking search:', err)
+        );
+      }
     } catch (err) {
+      console.error('Search error:', err);
       setError('Search failed');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -72,15 +101,25 @@ const HomeScreen = ({ navigation }) => {
     setLoading(true);
 
     try {
+      let data;
+      
       if (category === 'All') {
-        const data = await productService.getProducts();
-        setProducts(data);
+        data = await productService.getProducts();
       } else {
-        const data = await productService.getByCategory(category);
-        setProducts(data);
+        data = await productService.getByCategory(category);
+      }
+      
+      // Ensure data is an array
+      const validData = Array.isArray(data) ? data : [];
+      setProducts(validData);
+      
+      if (validData.length === 0) {
+        setError('');
       }
     } catch (err) {
+      console.error('Category filter error:', err);
       setError('Filter failed');
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -96,10 +135,11 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Shop</Text>
-      </View>
+    <SafeAreaView style={styles.safeContainer}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Shop</Text>
+        </View>
 
       {error && <ErrorMessage message={error} />}
 
@@ -153,11 +193,19 @@ const HomeScreen = ({ navigation }) => {
           ))
         )}
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
+  scrollView: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#FFF',

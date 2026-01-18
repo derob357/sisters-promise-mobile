@@ -10,6 +10,7 @@ import { AuthProvider } from './src/context/AuthContext';
 import { CartProvider } from './src/context/CartContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import analyticsService from './src/services/analyticsService';
+import ErrorBoundary from './src/components/ErrorBoundary';
 
 // Suppress known warnings
 LogBox.ignoreLogs([
@@ -27,14 +28,16 @@ function App() {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
-      <AuthProvider>
-        <CartProvider>
-          <RootNavigator />
-        </CartProvider>
-      </AuthProvider>
-    </SafeAreaProvider>
+    <ErrorBoundary>
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
+        <AuthProvider>
+          <CartProvider>
+            <RootNavigator />
+          </CartProvider>
+        </AuthProvider>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
 

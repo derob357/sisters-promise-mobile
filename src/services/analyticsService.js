@@ -44,9 +44,10 @@ const analyticsService = {
    */
   trackEvent: async (eventName, eventData = {}) => {
     try {
+      console.log('[Analytics] Tracking event:', eventName);
       await api.post('/api/analytics/event', {
-        eventName,
-        eventData: {
+        event: eventName,
+        properties: {
           ...eventData,
           sessionId: analyticsService.sessionId,
           timestamp: new Date().toISOString(),
@@ -71,7 +72,8 @@ const analyticsService = {
    */
   trackSignup: async (userId, userType = 'standard') => {
     try {
-      await api.post('/api/analytics/signup', {
+      console.log('[Analytics] Tracking signup for user:', userId);
+      await analyticsService.trackEvent('signup', {
         userId,
         userType,
       });
@@ -85,9 +87,11 @@ const analyticsService = {
    */
   trackPurchase: async (purchaseData) => {
     try {
+      console.log('[Analytics] Tracking purchase:', purchaseData.orderId);
       await api.post('/api/analytics/purchase', {
-        ...purchaseData,
-        sessionId: analyticsService.sessionId,
+        orderId: purchaseData.orderId,
+        total: purchaseData.total,
+        items: purchaseData.items,
       });
     } catch (error) {
       logger.error('Purchase analytics error:', error);
@@ -99,12 +103,15 @@ const analyticsService = {
    */
   trackProductView: async (productId, productName, price, category) => {
     try {
+      console.log('[Analytics] Tracking product view:', productId);
       await api.post('/api/analytics/product', {
-        action: 'view',
         productId,
-        productName,
-        price,
-        category,
+        action: 'view',
+        properties: {
+          productName,
+          price,
+          category,
+        },
       });
     } catch (error) {
       logger.error('Product view analytics error:', error);
@@ -116,12 +123,15 @@ const analyticsService = {
    */
   trackAddToCart: async (productId, productName, price, quantity) => {
     try {
+      console.log('[Analytics] Tracking add to cart:', productId);
       await api.post('/api/analytics/product', {
-        action: 'add_to_cart',
         productId,
-        productName,
-        price,
-        quantity,
+        action: 'add_to_cart',
+        properties: {
+          productName,
+          price,
+          quantity,
+        },
       });
     } catch (error) {
       logger.error('Add to cart analytics error:', error);
@@ -133,10 +143,13 @@ const analyticsService = {
    */
   trackSearch: async (searchTerm, resultsCount) => {
     try {
+      console.log('[Analytics] Tracking search:', searchTerm);
       await api.post('/api/analytics/product', {
         action: 'search',
-        search_term: searchTerm,
-        results_count: resultsCount,
+        properties: {
+          search_term: searchTerm,
+          results_count: resultsCount,
+        },
       });
     } catch (error) {
       logger.error('Search analytics error:', error);
@@ -148,10 +161,10 @@ const analyticsService = {
    */
   trackEmailSubscription: async (subscriptionType = 'newsletter') => {
     try {
+      console.log('[Analytics] Tracking email subscription:', subscriptionType);
       // Don't track raw email - GDPR/CCPA compliance
-      await api.post('/api/analytics/email-subscription', {
+      await analyticsService.trackEvent('email_subscription', {
         subscriptionType,
-        timestamp: new Date().toISOString(),
       });
     } catch (error) {
       logger.error('Email subscription analytics error:', error);

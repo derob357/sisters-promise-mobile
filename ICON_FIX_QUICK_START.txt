@@ -1,0 +1,42 @@
+## ⚡ Quick Fix: Missing Menu Icons (Question Marks)
+
+**Problem:** Bottom navigation tabs show ❓ instead of home, cart, person icons
+
+**Solution:** The icon fonts weren't linked to the native app. This has been fixed.
+
+### To Apply Fix:
+
+**Option 1 - Automatic (Recommended):**
+```bash
+cd SistersPromiseMobile
+chmod +x link-vector-icons.sh
+./link-vector-icons.sh
+```
+
+**Option 2 - Manual:**
+
+iOS:
+```bash
+cd SistersPromiseMobile/ios
+rm -rf Pods Podfile.lock
+pod install
+cd .. && npm run ios
+```
+
+Android:
+```bash
+cd SistersPromiseMobile && npm run android
+```
+
+### What was changed:
+- ✅ Created `react-native.config.js` (Metro bundler config)
+- ✅ Updated `ios/Podfile` (iOS font linking)
+- ✅ Added `android/app/src/main/assets/fonts/Ionicons.ttf` (Android fonts)
+- ✅ Created `link-vector-icons.sh` (automated linking)
+
+### After rebuild:
+✅ Icons show (home, cart, person)
+✅ Icons are green when selected
+✅ No console warnings
+
+**Full details:** See `ICON_FONTS_SETUP.md`

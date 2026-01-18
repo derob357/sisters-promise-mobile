@@ -30,16 +30,27 @@ const cartService = {
       let cart = await cartService.getCart();
       const existingItem = cart.find((item) => item.id === product.id);
 
+      // Handle image - get from images array or legacy imageUrl field
+      let imageUrl = product.image;
+      if (!imageUrl && Array.isArray(product.images) && product.images.length > 0) {
+        imageUrl = product.images[0].url || product.images[0].thumbnailUrl;
+      }
+      if (!imageUrl) {
+        imageUrl = product.imageUrl;
+      }
+
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: imageUrl,
+        quantity,
+      };
+
       if (existingItem) {
         existingItem.quantity += quantity;
       } else {
-        cart.push({
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          image: product.image,
-          quantity,
-        });
+        cart.push(cartItem);
       }
 
       await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));

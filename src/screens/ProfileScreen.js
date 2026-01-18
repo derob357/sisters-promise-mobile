@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useContext } from 'react';
-import { View, ScrollView, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, Text, TextInput, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { Header, Button, ErrorMessage, SuccessMessage } from '../components/CommonComponents';
 import authService from '../services/authService';
@@ -75,8 +75,9 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Header title="Profile" />
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Header title="Profile" />
 
       {error && <ErrorMessage message={error} />}
       {success && <SuccessMessage message={success} />}
@@ -181,7 +182,8 @@ const ProfileScreen = ({ navigation }) => {
           textStyle={styles.logoutButtonText}
         />
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

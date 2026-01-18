@@ -7,14 +7,43 @@ import api from './api';
 
 const productService = {
   /**
-   * Get all products
+   * Get all products with optional filtering
+   * Returns: Array of products (empty array if no products or error)
    */
   getProducts: async (filters = {}) => {
     try {
-      const response = await api.get('/api/products', { params: filters });
-      return response.data;
+      const params = {};
+      if (filters.category) params.category = filters.category;
+      if (filters.active !== undefined) params.active = filters.active;
+      
+      const response = await api.get('/api/products', { params });
+      
+      // Handle multiple response formats with proper validation
+      let products = [];
+      
+      // Format 1: { data: { products: [...] } }
+      if (response.data?.data?.products && Array.isArray(response.data.data.products)) {
+        products = response.data.data.products;
+      }
+      // Format 2: { products: [...] }
+      else if (response.data?.products && Array.isArray(response.data.products)) {
+        products = response.data.products;
+      }
+      // Format 3: Array directly
+      else if (Array.isArray(response.data)) {
+        products = response.data;
+      }
+      // Format 4: { data: [...] }
+      else if (response.data?.data && Array.isArray(response.data.data)) {
+        products = response.data.data;
+      }
+      
+      // Ensure we always return an array
+      return Array.isArray(products) ? products : [];
     } catch (error) {
-      throw error.response?.data || { error: 'Failed to fetch products' };
+      console.error('Error fetching products:', error);
+      // Return empty array on error to prevent .map() crashes
+      return [];
     }
   },
 
@@ -32,25 +61,65 @@ const productService = {
 
   /**
    * Get products by category
+   * Returns: Array of products (empty array if no products or error)
    */
   getByCategory: async (category) => {
     try {
-      const response = await api.get('/api/products', { params: { category } });
-      return response.data;
+      const response = await api.get('/api/products', { 
+        params: { category }
+      });
+      
+      // Handle multiple response formats with proper validation
+      let products = [];
+      
+      if (response.data?.data?.products && Array.isArray(response.data.data.products)) {
+        products = response.data.data.products;
+      } else if (response.data?.products && Array.isArray(response.data.products)) {
+        products = response.data.products;
+      } else if (Array.isArray(response.data)) {
+        products = response.data;
+      } else if (response.data?.data && Array.isArray(response.data.data)) {
+        products = response.data.data;
+      }
+      
+      return Array.isArray(products) ? products : [];
     } catch (error) {
-      throw error.response?.data || { error: 'Failed to fetch products' };
+      console.error('Error fetching category products:', error);
+      return [];
     }
   },
 
   /**
    * Search products
+   * Returns: Array of products (empty array if no results or error)
    */
   search: async (query) => {
     try {
-      const response = await api.get('/api/products/search', { params: { q: query } });
-      return response.data;
+      if (!query || !query.trim()) {
+        return [];
+      }
+      
+      const response = await api.get('/api/products/search', { 
+        params: { q: query }
+      });
+      
+      // Handle multiple response formats with proper validation
+      let products = [];
+      
+      if (response.data?.data?.products && Array.isArray(response.data.data.products)) {
+        products = response.data.data.products;
+      } else if (response.data?.products && Array.isArray(response.data.products)) {
+        products = response.data.products;
+      } else if (Array.isArray(response.data)) {
+        products = response.data;
+      } else if (response.data?.data && Array.isArray(response.data.data)) {
+        products = response.data.data;
+      }
+      
+      return Array.isArray(products) ? products : [];
     } catch (error) {
-      throw error.response?.data || { error: 'Search failed' };
+      console.error('Error searching products:', error);
+      return [];
     }
   },
 
@@ -63,6 +132,36 @@ const productService = {
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch categories' };
+    }
+  },
+
+  /**
+   * Get active products only
+   * Returns: Array of products (empty array if no products or error)
+   */
+  getActiveProducts: async () => {
+    try {
+      const response = await api.get('/api/products', { 
+        params: { active: true }
+      });
+      
+      // Handle multiple response formats with proper validation
+      let products = [];
+      
+      if (response.data?.data?.products && Array.isArray(response.data.data.products)) {
+        products = response.data.data.products;
+      } else if (response.data?.products && Array.isArray(response.data.products)) {
+        products = response.data.products;
+      } else if (Array.isArray(response.data)) {
+        products = response.data;
+      } else if (response.data?.data && Array.isArray(response.data.data)) {
+        products = response.data.data;
+      }
+      
+      return Array.isArray(products) ? products : [];
+    } catch (error) {
+      console.error('Error fetching active products:', error);
+      return [];
     }
   },
 };
