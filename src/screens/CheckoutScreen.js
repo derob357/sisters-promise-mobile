@@ -122,8 +122,8 @@ const CheckoutScreen = ({ route, navigation }) => {
 
       <View style={styles.content}>
         <Text style={styles.sectionTitle}>Order Summary</Text>
-        {cart.map((item) => (
-          <View key={item.id} style={styles.orderItem}>
+        {cart.map((item, index) => (
+          <View key={item.id || `checkout-item-${index}`} style={styles.orderItem}>
             <Text style={styles.itemName}>{item.name}</Text>
             <View style={styles.itemDetails}>
               <Text style={styles.itemQty}>Qty: {item.quantity}</Text>

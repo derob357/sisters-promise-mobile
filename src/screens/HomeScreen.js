@@ -126,7 +126,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleProductPress = (product) => {
-    analyticsService.trackProductView(product.id, product.name, product.price, product.category);
+    const productId = product._id || product.id || product.etsyListingId;
+    analyticsService.trackProductView(productId, product.name, product.price, product.category);
     navigation.navigate('ProductDetail', { product });
   };
 
@@ -184,9 +185,9 @@ const HomeScreen = ({ navigation }) => {
         ) : products.length === 0 ? (
           <Text style={styles.emptyText}>No products found</Text>
         ) : (
-          products.map((product) => (
+          products.map((product, index) => (
             <ProductCard
-              key={product.id}
+              key={product._id || product.id || product.etsyListingId || `product-${index}`}
               product={product}
               onPress={() => handleProductPress(product)}
             />

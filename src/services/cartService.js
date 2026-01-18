@@ -27,8 +27,11 @@ const cartService = {
    */
   addToCart: async (product, quantity = 1) => {
     try {
+      // Handle MongoDB _id vs id vs etsyListingId
+      const productId = product._id || product.id || product.etsyListingId;
+
       let cart = await cartService.getCart();
-      const existingItem = cart.find((item) => item.id === product.id);
+      const existingItem = cart.find((item) => item.id === productId);
 
       // Handle image - get from images array or legacy imageUrl field
       let imageUrl = product.image;
@@ -40,7 +43,7 @@ const cartService = {
       }
 
       const cartItem = {
-        id: product.id,
+        id: productId,
         name: product.name,
         price: product.price,
         image: imageUrl,

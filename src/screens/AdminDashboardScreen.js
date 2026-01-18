@@ -186,10 +186,10 @@ const AdminDashboardScreen = ({ navigation }) => {
           <Text style={styles.sectionTitle}>Recent Orders</Text>
 
           {stats?.recentOrders?.length > 0 ? (
-            stats.recentOrders.slice(0, 5).map((order) => (
-              <View key={order.id} style={styles.orderItem}>
+            stats.recentOrders.slice(0, 5).map((order, index) => (
+              <View key={order._id || order.id || `order-${index}`} style={styles.orderItem}>
                 <View style={styles.orderInfo}>
-                  <Text style={styles.orderId}>Order #{order.id}</Text>
+                  <Text style={styles.orderId}>Order #{order._id || order.id}</Text>
                   <Text style={styles.orderCustomer}>{order.customerName}</Text>
                 </View>
                 <View style={styles.orderMeta}>

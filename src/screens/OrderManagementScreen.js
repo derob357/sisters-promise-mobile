@@ -177,11 +177,11 @@ const OrderManagementScreen = ({ navigation }) => {
               <Text style={styles.emptyText}>No orders found</Text>
             </View>
           ) : (
-            orders.map((order) => (
-              <View key={order.id} style={styles.orderCard}>
+            orders.map((order, index) => (
+              <View key={order._id || order.id || `order-${index}`} style={styles.orderCard}>
                 <View style={styles.orderHeader}>
                   <View>
-                    <Text style={styles.orderId}>Order #{order.id}</Text>
+                    <Text style={styles.orderId}>Order #{order._id || order.id}</Text>
                     <Text style={styles.orderDate}>
                       {formatDate(order.createdAt)}
                     </Text>

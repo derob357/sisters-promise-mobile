@@ -112,9 +112,9 @@ const BlogScreen = ({ navigation }) => {
               <Text style={styles.emptyText}>No blog posts available</Text>
             </View>
           ) : (
-            posts.map((post) => (
+            posts.map((post, index) => (
               <TouchableOpacity
-                key={post.id}
+                key={post._id || post.id || `post-${index}`}
                 style={styles.postCard}
                 onPress={() => navigation.navigate('BlogDetail', { post })}
               >

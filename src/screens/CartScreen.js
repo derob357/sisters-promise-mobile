@@ -62,9 +62,9 @@ const CartScreen = ({ navigation }) => {
       ) : (
         <>
           <ScrollView style={styles.cartItemsContainer}>
-            {cart.map((item) => (
+            {cart.map((item, index) => (
               <CartItem
-                key={item.id}
+                key={item.id || `cart-item-${index}`}
                 item={item}
                 onUpdateQuantity={(id, qty) => updateQuantity(id, qty)}
                 onRemove={() => removeFromCart(item.id)}
