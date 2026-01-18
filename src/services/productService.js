@@ -11,7 +11,7 @@ const productService = {
    */
   getProducts: async (filters = {}) => {
     try {
-      const response = await api.get('/products', { params: filters });
+      const response = await api.get('/api/products', { params: filters });
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch products' };
@@ -23,7 +23,7 @@ const productService = {
    */
   getProduct: async (productId) => {
     try {
-      const response = await api.get(`/products/${productId}`);
+      const response = await api.get(`/api/products/${productId}`);
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch product' };
@@ -35,7 +35,7 @@ const productService = {
    */
   getByCategory: async (category) => {
     try {
-      const response = await api.get('/products', { params: { category } });
+      const response = await api.get('/api/products', { params: { category } });
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch products' };
@@ -47,7 +47,7 @@ const productService = {
    */
   search: async (query) => {
     try {
-      const response = await api.get('/products/search', { params: { q: query } });
+      const response = await api.get('/api/products/search', { params: { q: query } });
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Search failed' };
@@ -59,7 +59,7 @@ const productService = {
    */
   getCategories: async () => {
     try {
-      const response = await api.get('/products/categories');
+      const response = await api.get('/api/products/categories');
       return response.data;
     } catch (error) {
       throw error.response?.data || { error: 'Failed to fetch categories' };

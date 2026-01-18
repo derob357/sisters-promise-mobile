@@ -44,7 +44,7 @@ const analyticsService = {
    */
   trackEvent: async (eventName, eventData = {}) => {
     try {
-      await api.post('/analytics/event', {
+      await api.post('/api/analytics/event', {
         eventName,
         eventData: {
           ...eventData,
@@ -71,7 +71,7 @@ const analyticsService = {
    */
   trackSignup: async (userId, userType = 'standard') => {
     try {
-      await api.post('/analytics/signup', {
+      await api.post('/api/analytics/signup', {
         userId,
         userType,
       });
@@ -85,7 +85,7 @@ const analyticsService = {
    */
   trackPurchase: async (purchaseData) => {
     try {
-      await api.post('/analytics/purchase', {
+      await api.post('/api/analytics/purchase', {
         ...purchaseData,
         sessionId: analyticsService.sessionId,
       });
@@ -99,7 +99,7 @@ const analyticsService = {
    */
   trackProductView: async (productId, productName, price, category) => {
     try {
-      await api.post('/analytics/product', {
+      await api.post('/api/analytics/product', {
         action: 'view',
         productId,
         productName,
@@ -116,7 +116,7 @@ const analyticsService = {
    */
   trackAddToCart: async (productId, productName, price, quantity) => {
     try {
-      await api.post('/analytics/product', {
+      await api.post('/api/analytics/product', {
         action: 'add_to_cart',
         productId,
         productName,
@@ -133,7 +133,7 @@ const analyticsService = {
    */
   trackSearch: async (searchTerm, resultsCount) => {
     try {
-      await api.post('/analytics/product', {
+      await api.post('/api/analytics/product', {
         action: 'search',
         search_term: searchTerm,
         results_count: resultsCount,
@@ -149,7 +149,7 @@ const analyticsService = {
   trackEmailSubscription: async (subscriptionType = 'newsletter') => {
     try {
       // Don't track raw email - GDPR/CCPA compliance
-      await api.post('/analytics/email-subscription', {
+      await api.post('/api/analytics/email-subscription', {
         subscriptionType,
         timestamp: new Date().toISOString(),
       });
@@ -163,7 +163,7 @@ const analyticsService = {
    */
   trackFormSubmission: async (formName) => {
     try {
-      await api.post('/analytics/form', {
+      await api.post('/api/analytics/form', {
         formName,
       });
     } catch (error) {

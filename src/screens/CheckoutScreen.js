@@ -42,7 +42,7 @@ const CheckoutScreen = ({ route, navigation }) => {
 
     try {
       // Create order
-      const response = await api.post('/orders', {
+      const response = await api.post('/api/orders', {
         items: cart.map((item) => ({
           productId: item.id,
           quantity: item.quantity,
