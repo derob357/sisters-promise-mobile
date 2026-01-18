@@ -11,7 +11,8 @@ import logger from '../utils/logger';
 // Base URL - uses HTTPS for encrypted communication
 // For iOS Simulator: 127.0.0.1 routes to host Mac
 // For physical device: use your-local-ip
-const API_BASE_URL = process.env.API_BASE_URL || 'https://127.0.0.1:443/api';
+// Note: Backend routes don't have /api prefix (e.g., /users/login not /api/users/login)
+const API_BASE_URL = 'https://127.0.0.1:443';
 
 console.log('[API] Configured base URL:', API_BASE_URL);
 
