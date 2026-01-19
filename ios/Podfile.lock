@@ -325,6 +325,8 @@ PODS:
     - React-Core
   - react-native-safe-area-context (5.6.2):
     - React-Core
+  - react-native-tracking-transparency (0.1.2):
+    - React
   - React-NativeModulesApple (0.72.13):
     - hermes-engine
     - React-callinvoker
@@ -480,6 +482,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-tracking-transparency (from `../node_modules/react-native-tracking-transparency`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -561,6 +564,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-tracking-transparency:
+    :path: "../node_modules/react-native-tracking-transparency"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -636,6 +641,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: e48706fb09fde89f82e12bfb49b140cfdcb761f7
+  react-native-tracking-transparency: 25ff1ff866e338c137c818bdec20526bb05ffcc1
   React-NativeModulesApple: 83cd035f454ac54f4f72ce7b01c34054fa6d60f8
   React-perflogger: de3900e86d8a4d896999b08e0b130ad8b83ebf11
   React-RCTActionSheet: 92433ffdf1b479aab3fe32250047f100a10ce59f

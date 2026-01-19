@@ -4,13 +4,17 @@
  */
 
 import React from 'react';
-import { StatusBar, LogBox } from 'react-native';
+import { StatusBar, LogBox, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/context/AuthContext';
 import { CartProvider } from './src/context/CartContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import analyticsService from './src/services/analyticsService';
 import ErrorBoundary from './src/components/ErrorBoundary';
+import {
+  requestTrackingPermission,
+  getTrackingStatus,
+} from 'react-native-tracking-transparency';
 
 // Suppress known warnings
 LogBox.ignoreLogs([
@@ -20,11 +24,33 @@ LogBox.ignoreLogs([
 
 function App() {
   console.log('[App] Rendering');
-  
-  // Initialize analytics on app start
+
+  // Request tracking permission (iOS 14.5+) and initialize analytics
   React.useEffect(() => {
-    console.log('[App] useEffect: initializing analytics');
-    analyticsService.init();
+    const initializeTracking = async () => {
+      console.log('[App] Initializing tracking and analytics');
+
+      // Request ATT permission on iOS 14.5+
+      if (Platform.OS === 'ios') {
+        try {
+          const status = await getTrackingStatus();
+          console.log('[App] Current tracking status:', status);
+
+          if (status === 'not-determined') {
+            const newStatus = await requestTrackingPermission();
+            console.log('[App] Tracking permission result:', newStatus);
+          }
+        } catch (error) {
+          console.log('[App] Tracking permission error:', error);
+        }
+      }
+
+      // Initialize analytics regardless of tracking permission
+      // (first-party analytics are allowed without ATT)
+      analyticsService.init();
+    };
+
+    initializeTracking();
   }, []);
 
   return (
