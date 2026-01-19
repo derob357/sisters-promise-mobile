@@ -1,4 +1,23 @@
 {
   "name": "SistersPromiseMobile",
-  "displayName": "SistersPromiseMobile"
+  "displayName": "Sisters Promise",
+  "description": "Natural handmade skincare products - soaps, bath salts, and sea moss wellness items",
+  "version": "1.0.0",
+  "slug": "sisterspromise",
+  "ios": {
+    "supportsTabletMode": true,
+    "bundleIdentifier": "com.sisterspromise.app",
+    "buildNumber": "1"
+  },
+  "android": {
+    "package": "com.sisterspromise.app",
+    "versionCode": 1,
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/images/logos/sisterspromise-icon-adaptive.png",
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  "web": {
+    "favicon": "./assets/img/logos/sisterspromise-favicon.png"
+  }
 }
