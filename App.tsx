@@ -8,6 +8,7 @@ import { StatusBar, LogBox, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/context/AuthContext';
 import { CartProvider } from './src/context/CartContext';
+import { RewardsProvider } from './src/context/RewardsContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import analyticsService from './src/services/analyticsService';
 import ErrorBoundary from './src/components/ErrorBoundary';
@@ -58,9 +59,11 @@ function App() {
       <SafeAreaProvider>
         <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
         <AuthProvider>
-          <CartProvider>
-            <RootNavigator />
-          </CartProvider>
+          <RewardsProvider>
+            <CartProvider>
+              <RootNavigator />
+            </CartProvider>
+          </RewardsProvider>
         </AuthProvider>
       </SafeAreaProvider>
     </ErrorBoundary>
