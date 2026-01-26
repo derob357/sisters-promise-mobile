@@ -13,7 +13,7 @@ import logger from '../utils/logger';
 // For physical device: use your machine's local IP
 // Note: Backend routes don't have /api prefix (e.g., /users/login not /api/users/login)
 // Using HTTP for local development to avoid self-signed certificate issues
-const API_BASE_URL = __DEV__ ? 'http://localhost:3000' : 'https://your-production-domain.com';
+const API_BASE_URL = __DEV__ ? 'http://localhost:3000' : 'https://sisterspromise.onrender.com';
 
 console.log('[API] Configured base URL:', API_BASE_URL);
 
