@@ -103,7 +103,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
         <Text style={styles.sectionText}>
           We retain your personal information for as long as necessary to provide our services and
           fulfill the purposes outlined in this policy. You can request deletion of your account and
-          associated data by contacting us at denise@sisterspromise.com.
+          associated data by contacting us at info@sisterspromise.com.
         </Text>
 
         <Text style={styles.sectionTitle}>7. Your Privacy Rights</Text>
@@ -156,7 +156,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
         <Text style={styles.sectionText}>
           If you have questions about this Privacy Policy or our privacy practices, please contact us at:
         </Text>
-        <Text style={styles.contact}>Email: denise@sisterspromise.com</Text>
+        <Text style={styles.contact}>Email: info@sisterspromise.com</Text>
         <Text style={styles.contact}>Website: www.sisterspromise.com</Text>
         <Text style={styles.contact}>Address: Sisters Promise, USA</Text>
 
