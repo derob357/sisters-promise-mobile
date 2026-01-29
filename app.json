@@ -7,7 +7,7 @@
   "ios": {
     "supportsTabletMode": true,
     "bundleIdentifier": "com.sisterspromise.app",
-    "buildNumber": "1"
+    "buildNumber": "2"
   },
   "android": {
     "package": "com.sisterspromise.app",

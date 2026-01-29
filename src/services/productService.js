@@ -4,6 +4,7 @@
  */
 
 import api from './api';
+import logger from '../utils/logger';
 
 const productService = {
   /**
@@ -41,7 +42,7 @@ const productService = {
       // Ensure we always return an array
       return Array.isArray(products) ? products : [];
     } catch (error) {
-      console.error('Error fetching products:', error);
+      logger.error('Error fetching products:', error);
       // Return empty array on error to prevent .map() crashes
       return [];
     }
@@ -84,7 +85,7 @@ const productService = {
       
       return Array.isArray(products) ? products : [];
     } catch (error) {
-      console.error('Error fetching category products:', error);
+      logger.error('Error fetching category products:', error);
       return [];
     }
   },
@@ -118,7 +119,7 @@ const productService = {
       
       return Array.isArray(products) ? products : [];
     } catch (error) {
-      console.error('Error searching products:', error);
+      logger.error('Error searching products:', error);
       return [];
     }
   },
@@ -160,7 +161,7 @@ const productService = {
       
       return Array.isArray(products) ? products : [];
     } catch (error) {
-      console.error('Error fetching active products:', error);
+      logger.error('Error fetching active products:', error);
       return [];
     }
   },

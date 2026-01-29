@@ -8,18 +8,19 @@ import { AuthContext } from '../context/AuthContext';
 import { AuthNavigator } from './AuthNavigator';
 import { AppNavigator } from './AppNavigator';
 import { Spinner } from '../components/CommonComponents';
+import logger from '../utils/logger';
 
 export const RootNavigator = () => {
   const { isLoading, user, isSignout } = useContext(AuthContext);
   
-  console.log('[RootNavigator] isLoading:', isLoading, 'user:', user ? user.email : 'NO USER', 'isSignout:', isSignout);
+  logger.log('[RootNavigator] isLoading:', isLoading, 'user:', user ? user.email : 'NO USER', 'isSignout:', isSignout);
 
   if (isLoading) {
-    console.log('[RootNavigator] Showing spinner');
+    logger.log('[RootNavigator] Showing spinner');
     return <Spinner />;
   }
 
-  console.log('[RootNavigator] Rendering navigation container');
+  logger.log('[RootNavigator] Rendering navigation container');
   return (
     <NavigationContainer>
       {user && !isSignout ? <AppNavigator /> : <AuthNavigator />}

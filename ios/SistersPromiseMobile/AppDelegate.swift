@@ -52,17 +52,10 @@ extension AppDelegate: RCTBridgeDelegate {
       return comps.url
     }
 
-    if let host = host, !host.isEmpty {
-      NSLog("[AppDelegate] DEBUG: Using DebugDevServerHost from UserDefaults: \(host)")
-    } else {
-      NSLog("[AppDelegate] DEBUG: No DebugDevServerHost override set; defaulting to localhost.")
-    }
-
     // Try manual Metro URLs first for common entry points.
     let manualCandidates = ["index", "index.ios", "main"]
     for root in manualCandidates {
       if let url = metroURL(bundleRoot: root) {
-        NSLog("[AppDelegate] DEBUG: Trying manual Metro URL for root '\(root)': \(url.absoluteString)")
         return url
       }
     }
@@ -74,18 +67,12 @@ extension AppDelegate: RCTBridgeDelegate {
     #else
     // Release: use pre-bundled file
     let url = Bundle.main.url(forResource: "main", withExtension: "jsbundle")
-    if url == nil {
-      NSLog("[AppDelegate] ERROR: Release build missing main.jsbundle in app bundle.")
-    } else {
-      NSLog("[AppDelegate] Release: Found main.jsbundle.")
-    }
     return url
     #endif
   }
 
   private func showBundleMissingErrorView() {
     guard let window = self.window else {
-      NSLog("[AppDelegate] WARN: No window to present error view.")
       return
     }
     let vc = UIViewController()
@@ -118,6 +105,5 @@ extension AppDelegate: RCTBridgeDelegate {
     window.rootViewController = vc
     window.makeKeyAndVisible()
 
-    NSLog("[AppDelegate] Presented error view due to missing JS bundle URL.")
   }
 }

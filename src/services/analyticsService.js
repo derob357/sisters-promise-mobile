@@ -44,7 +44,7 @@ const analyticsService = {
    */
   trackEvent: async (eventName, eventData = {}) => {
     try {
-      console.log('[Analytics] Tracking event:', eventName);
+      logger.log('[Analytics] Tracking event:', eventName);
       await api.post('/api/analytics/event', {
         event: eventName,
         properties: {
@@ -72,7 +72,7 @@ const analyticsService = {
    */
   trackSignup: async (userId, userType = 'standard') => {
     try {
-      console.log('[Analytics] Tracking signup for user:', userId);
+      logger.log('[Analytics] Tracking signup for user:', userId);
       await analyticsService.trackEvent('signup', {
         userId,
         userType,
@@ -87,7 +87,7 @@ const analyticsService = {
    */
   trackPurchase: async (purchaseData) => {
     try {
-      console.log('[Analytics] Tracking purchase:', purchaseData.orderId);
+      logger.log('[Analytics] Tracking purchase:', purchaseData.orderId);
       await api.post('/api/analytics/purchase', {
         orderId: purchaseData.orderId,
         total: purchaseData.total,
@@ -103,7 +103,7 @@ const analyticsService = {
    */
   trackProductView: async (productId, productName, price, category) => {
     try {
-      console.log('[Analytics] Tracking product view:', productId);
+      logger.log('[Analytics] Tracking product view:', productId);
       await api.post('/api/analytics/product', {
         productId,
         action: 'view',
@@ -123,7 +123,7 @@ const analyticsService = {
    */
   trackAddToCart: async (productId, productName, price, quantity) => {
     try {
-      console.log('[Analytics] Tracking add to cart:', productId);
+      logger.log('[Analytics] Tracking add to cart:', productId);
       await api.post('/api/analytics/product', {
         productId,
         action: 'add_to_cart',
@@ -143,7 +143,7 @@ const analyticsService = {
    */
   trackSearch: async (searchTerm, resultsCount) => {
     try {
-      console.log('[Analytics] Tracking search:', searchTerm);
+      logger.log('[Analytics] Tracking search:', searchTerm);
       await api.post('/api/analytics/product', {
         action: 'search',
         properties: {
@@ -161,7 +161,7 @@ const analyticsService = {
    */
   trackEmailSubscription: async (subscriptionType = 'newsletter') => {
     try {
-      console.log('[Analytics] Tracking email subscription:', subscriptionType);
+      logger.log('[Analytics] Tracking email subscription:', subscriptionType);
       // Don't track raw email - GDPR/CCPA compliance
       await analyticsService.trackEvent('email_subscription', {
         subscriptionType,

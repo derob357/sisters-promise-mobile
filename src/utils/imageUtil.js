@@ -3,6 +3,8 @@
  * Sanitizes and validates image URLs to prevent "unsanitized script URL string" warnings
  */
 
+import logger from './logger';
+
 /**
  * Safely encode image URI to prevent React Native security warnings
  * Handles Etsy URLs and other external image sources
@@ -18,7 +20,7 @@ export const encodeImageUri = (uri) => {
     
     // Check if it's a valid URL format (starts with http/https)
     if (!trimmedUri.startsWith('http://') && !trimmedUri.startsWith('https://')) {
-      console.warn('[ImageUtil] Invalid image protocol (not http/https):', trimmedUri.substring(0, 50));
+      logger.warn('[ImageUtil] Invalid image protocol (not http/https):', trimmedUri.substring(0, 50));
       return null;
     }
 
@@ -26,7 +28,7 @@ export const encodeImageUri = (uri) => {
     try {
       new URL(trimmedUri);
     } catch (urlError) {
-      console.warn('[ImageUtil] Invalid URL format:', trimmedUri.substring(0, 50), urlError.message);
+      logger.warn('[ImageUtil] Invalid URL format:', trimmedUri.substring(0, 50), urlError.message);
       return null;
     }
 
@@ -35,7 +37,7 @@ export const encodeImageUri = (uri) => {
     // This is safe for image URIs from trusted sources like Etsy
     return trimmedUri;
   } catch (error) {
-    console.warn('[ImageUtil] Unexpected error encoding URI:', error.message);
+    logger.warn('[ImageUtil] Unexpected error encoding URI:', error.message);
     return null;
   }
 };
@@ -53,7 +55,7 @@ export const getSafeImageSource = (imageUri) => {
   
   if (!safeUri) {
     // Log the invalid URI for debugging but don't crash
-    console.log('[ImageUtil] Skipping invalid image URI');
+    logger.log('[ImageUtil] Skipping invalid image URI');
     return null;
   }
 

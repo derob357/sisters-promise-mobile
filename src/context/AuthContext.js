@@ -18,19 +18,18 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const bootstrapAsync = async () => {
       try {
-        console.log('[AuthContext] Bootstrap started');
+        logger.log('[AuthContext] Bootstrap started');
         const userData = await authService.getUserData();
-        console.log('[AuthContext] Got user data:', userData ? 'YES' : 'NO');
+        logger.log('[AuthContext] Got user data:', userData ? 'YES' : 'NO');
         if (userData) {
           setUser(userData);
           // Initialize analytics with user data
           await analyticsService.init();
         }
       } catch (error) {
-        console.error('[AuthContext] Bootstrap error:', error);
-        logger.log('Bootstrap error:', error);
+        logger.error('[AuthContext] Bootstrap error:', error);
       } finally {
-        console.log('[AuthContext] Bootstrap complete, setting isLoading to false');
+        logger.log('[AuthContext] Bootstrap complete, setting isLoading to false');
         setIsLoading(false);
       }
     };

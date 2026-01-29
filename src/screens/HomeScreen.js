@@ -70,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
         setCategories(['All', ...Array.from(uniqueCategories)]);
       }
     } catch (err) {
-      console.error('Load products error:', err);
+      logger.error('Load products error:', err);
       setError('Failed to load products');
       logger.error('Load products error:', err);
       setProducts([]);
@@ -105,10 +105,10 @@ const HomeScreen = ({ navigation }) => {
       if (analyticsService && analyticsService.trackSearch) {
         await analyticsService
           .trackSearch(searchQuery, validResults.length)
-          .catch((err) => console.error('Error tracking search:', err));
+          .catch((err) => logger.error('Error tracking search:', err));
       }
     } catch (err) {
-      console.error('Search error:', err);
+      logger.error('Search error:', err);
       setError('Search failed');
       setProducts([]);
     } finally {
@@ -137,7 +137,7 @@ const HomeScreen = ({ navigation }) => {
         setError('');
       }
     } catch (err) {
-      console.error('Category filter error:', err);
+      logger.error('Category filter error:', err);
       setError('Filter failed');
       setProducts([]);
     } finally {

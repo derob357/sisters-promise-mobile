@@ -15,14 +15,14 @@ import logger from '../utils/logger';
 // Using HTTP for local development to avoid self-signed certificate issues
 const API_BASE_URL = __DEV__ ? 'http://localhost:3000' : 'https://sisterspromise.onrender.com';
 
-console.log('[API] Configured base URL:', API_BASE_URL);
+logger.log('[API] Configured base URL:', API_BASE_URL);
 
 // Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 15000,
-  // For development: allow self-signed certificates
-  rejectUnauthorizedCerts: false,
+  // Only allow self-signed certificates in development
+  ...__DEV__ && { rejectUnauthorizedCerts: false },
 });
 
 // Add token to requests
@@ -49,7 +49,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     // Log detailed error information
-    console.error('[API Error]', {
+    logger.error('[API Error]', {
       message: error.message,
       code: error.code,
       status: error.response?.status,

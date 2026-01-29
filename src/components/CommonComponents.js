@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { getSafeImageSource, getProductImageUrl } from '../utils/imageUtil';
+import logger from '../utils/logger';
 
 // Header Component
 export const Header = ({ title, onBackPress, rightComponent }) => (
@@ -84,7 +85,7 @@ export const SafeImage = ({ source, style, resizeMode = 'cover', placeholder = t
         onLoadStart={() => setLoading(true)}
         onLoadEnd={() => setLoading(false)}
         onError={(error) => {
-          console.warn('[SafeImage] Image load error:', error.error);
+          logger.warn('[SafeImage] Image load error:', error.error);
           setError(true);
           setLoading(false);
         }}
