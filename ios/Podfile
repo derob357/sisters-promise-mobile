@@ -19,6 +19,7 @@ target 'SistersPromiseMobile' do
 
   use_react_native!(
     :path => config[:reactNativePath],
+    :hermes_enabled => false,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -37,6 +38,11 @@ target 'SistersPromiseMobile' do
         target.build_configurations.each do |config|
           config.build_settings['SWIFT_VERSION'] = '5.0'
         end
+      end
+
+      # Ensure dSYM files are generated for all pods (including Hermes)
+      target.build_configurations.each do |config|
+        config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf-with-dsym'
       end
     end
   end

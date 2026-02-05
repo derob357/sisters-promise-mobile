@@ -15,6 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
     // Create a placeholder bridge and root view.
+#if DEBUG
+#if !targetEnvironment(simulator)
+// Automatically set Metro server host to your Mac's IP when running on device
+UserDefaults.standard.set("158.111.21.76", forKey: debugDevServerHostKey)
+#endif
+#endif
     let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)
     let rootView = RCTRootView(bridge: bridge!, moduleName: "SistersPromiseMobile", initialProperties: nil)
 
@@ -107,3 +113,4 @@ extension AppDelegate: RCTBridgeDelegate {
 
   }
 }
+
