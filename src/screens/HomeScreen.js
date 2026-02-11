@@ -288,7 +288,7 @@ const HomeScreen = ({ navigation }) => {
               placeholderTextColor="#999"
             />
           </View>
-          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+          <TouchableOpacity style={styles.searchButton} onPress={handleSearch} accessibilityLabel="Search products" accessibilityRole="button">
             <Text style={styles.searchButtonText}>Search</Text>
           </TouchableOpacity>
         </View>
@@ -308,6 +308,9 @@ const HomeScreen = ({ navigation }) => {
                 selectedCategory === category && styles.categoryButtonActive,
               ]}
               onPress={() => handleCategoryFilter(category)}
+              accessibilityLabel={`Filter by ${category}`}
+              accessibilityRole="button"
+              accessibilityState={{ selected: selectedCategory === category }}
             >
               <Text
                 style={[
@@ -345,6 +348,8 @@ const HomeScreen = ({ navigation }) => {
                   setSearchQuery('');
                   handleCategoryFilter('All');
                 }}
+                accessibilityLabel="Reset product filters"
+                accessibilityRole="button"
               >
                 <Text style={styles.resetButtonText}>Reset Filters</Text>
               </TouchableOpacity>

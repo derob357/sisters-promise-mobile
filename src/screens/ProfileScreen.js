@@ -175,6 +175,10 @@ const ProfileScreen = ({ navigation }) => {
           <Text style={styles.linkText}>Terms of Service</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => navigation.navigate('DataDeletion')}>
+          <Text style={styles.linkText}>Delete Your Data</Text>
+        </TouchableOpacity>
+
         <Button
           title="Logout"
           onPress={handleLogout}

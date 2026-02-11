@@ -221,9 +221,9 @@ const CheckoutScreen = ({ route, navigation }) => {
           editable={!loading}
         />
 
-        <Button title="Complete Order" onPress={handleCheckout} disabled={loading} loading={loading} />
+        <Button title="Complete Order" onPress={handleCheckout} disabled={loading} loading={loading} accessibilityLabel="Complete your order" />
 
-        <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+        <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')} accessibilityLabel="View privacy policy" accessibilityRole="link">
           <Text style={styles.privacyText}>
             By placing this order, you agree to our Privacy Policy
           </Text>

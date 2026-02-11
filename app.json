@@ -10,7 +10,7 @@
     "buildNumber": "2"
   },
   "android": {
-    "package": "com.sisterspromise.app",
+    "package": "com.sisterspromisemobile",
     "versionCode": 1,
     "adaptiveIcon": {
       "foregroundImage": "./assets/images/logos/sisterspromise-icon-adaptive.png",

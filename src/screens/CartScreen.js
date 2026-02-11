@@ -57,6 +57,7 @@ const CartScreen = ({ navigation }) => {
             title="Continue Shopping"
             onPress={() => navigation.navigate('Home')}
             style={styles.continueButton}
+            accessibilityLabel="Continue shopping"
           />
         </View>
       ) : (
@@ -91,6 +92,7 @@ const CartScreen = ({ navigation }) => {
               onPress={handleCheckout}
               disabled={loading}
               loading={loading}
+              accessibilityLabel={`Proceed to checkout, total ${cartTotal.toFixed(2)} dollars`}
             />
           </View>
         </>

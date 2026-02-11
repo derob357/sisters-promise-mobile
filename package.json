@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "react-native run-android --port 8082",
+    "ios": "react-native run-ios --port 8082",
+    "kill-metro-port": "lsof -ti tcp:8081 | xargs -r kill -9",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "npm run kill-metro-port && react-native start --port 8081",
     "test": "jest"
   },
   "dependencies": {

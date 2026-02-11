@@ -14,6 +14,7 @@ import CartScreen from '../screens/CartScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import DataDeletionScreen from '../screens/DataDeletionScreen';
 import BlogScreen from '../screens/BlogScreen';
 import AdminDashboardScreen from '../screens/AdminDashboardScreen';
 import OrderManagementScreen from '../screens/OrderManagementScreen';
@@ -72,6 +73,7 @@ const ProfileStack = () => {
     >
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
+      <Stack.Screen name="DataDeletion" component={DataDeletionScreen} />
       <Stack.Screen name="TermsOfService" component={ProfileScreen} />
     </Stack.Navigator>
   );
