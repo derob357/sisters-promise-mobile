@@ -1,6 +1,6 @@
 /**
  * Jest Configuration
- * Unit and integration test setup for Sisters Promise Mobile
+ * Unit and integration test setup for Sister's Promise Mobile
  */
 
 module.exports = {

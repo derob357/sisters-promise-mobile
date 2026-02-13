@@ -77,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
-          <Text style={styles.title}>Sisters Promise</Text>
+          <Text style={styles.title}>Sister's Promise</Text>
           <Text style={styles.subtitle}>Natural Skincare</Text>
 
         {error && <ErrorMessage message={error} />}

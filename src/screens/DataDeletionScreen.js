@@ -27,7 +27,7 @@ const DataDeletionScreen = ({ navigation }) => {
   const handleEmailRequest = () => {
     const subject = encodeURIComponent('Account & Data Deletion Request');
     const body = encodeURIComponent(
-      `Hi Sisters Promise,\n\nI would like to request deletion of my account and all associated data.\n\nAccount email: ${user?.email || '(your email)'}\n\nThank you.`
+      `Hi Sister's Promise,\n\nI would like to request deletion of my account and all associated data.\n\nAccount email: ${user?.email || '(your email)'}\n\nThank you.`
     );
     Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`);
   };

@@ -50,7 +50,7 @@ const BlogScreen = ({ navigation }) => {
   const getPlaceholderPosts = () => [
     {
       id: '1',
-      title: 'Welcome to Sisters Promise',
+      title: "Welcome to Sister's Promise",
       excerpt: 'Discover our journey of creating natural, handcrafted skincare products that nourish your skin and soul.',
       date: new Date().toISOString(),
       image: null,

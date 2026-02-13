@@ -1,5 +1,5 @@
 /**
- * Sisters Promise Mobile App
+ * Sister's Promise Mobile App
  * React Native App for iOS and Android
  */
 

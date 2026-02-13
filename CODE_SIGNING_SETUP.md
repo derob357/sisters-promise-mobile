@@ -35,7 +35,7 @@
 2. Click: "+ Apps"
 3. Fill in:
    - Platform: iOS
-   - Name: Sisters Promise
+   - Name: Sister's Promise
    - Bundle ID: `com.sisterspromise.app` ✅
    - SKU: (any unique identifier, e.g., sisterspromise-2025)
    - Primary Language: English

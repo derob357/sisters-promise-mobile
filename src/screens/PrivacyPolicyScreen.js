@@ -15,7 +15,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
 
         <Text style={styles.sectionTitle}>1. Introduction</Text>
         <Text style={styles.sectionText}>
-          Sisters Promise ("we," "our," or "us") respects your privacy and is committed to protecting
+          Sister's Promise ("we," "our," or "us") respects your privacy and is committed to protecting
           your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard
           your information when you visit our mobile application.
         </Text>
@@ -158,7 +158,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
         </Text>
         <Text style={styles.contact}>Email: info@sisterspromise.com</Text>
         <Text style={styles.contact}>Website: www.sisterspromise.com</Text>
-        <Text style={styles.contact}>Address: Sisters Promise, USA</Text>
+        <Text style={styles.contact}>Address: Sister's Promise, USA</Text>
 
         <View style={styles.spacer} />
       </ScrollView>

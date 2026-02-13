@@ -2,7 +2,7 @@
 
 ## App Store Connect Export Compliance Declaration
 
-This document describes the encryption usage in the **Sisters Promise** iOS mobile application for Apple App Store Connect compliance.
+This document describes the encryption usage in the **Sister's Promise** iOS mobile application for Apple App Store Connect compliance.
 
 ---
 
@@ -28,7 +28,7 @@ This document describes the encryption usage in the **Sisters Promise** iOS mobi
 
 ### 2. HTTPS/TLS Usage
 
-The Sisters Promise app uses HTTPS (TLS 1.2+) exclusively for:
+The Sister's Promise app uses HTTPS (TLS 1.2+) exclusively for:
 
 - **API Communication**: All requests to the backend server (`api.sisterspromise.com`) use HTTPS
 - **Authentication**: JWT tokens transmitted over encrypted connections
@@ -155,11 +155,11 @@ When submitting to App Store Connect, answer the export compliance questions as 
 
 | Field | Value |
 |-------|-------|
-| App Name | Sisters Promise |
+| App Name | Sister's Promise |
 | Bundle ID | com.sisterspromise.app |
 | Version | 1.0.0 |
 | Last Updated | February 2026 |
-| Prepared By | Sisters Promise Development Team |
+| Prepared By | Sister's Promise Development Team |
 
 ---
 
@@ -167,4 +167,4 @@ When submitting to App Store Connect, answer the export compliance questions as 
 
 For questions about this compliance documentation:
 - **Email**: support@sisterspromise.com
-- **Developer**: Sisters Promise LLC
+- **Developer**: Sister's Promise LLC

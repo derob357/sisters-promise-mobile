@@ -74,7 +74,7 @@ const RegisterScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
           <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Join Sisters Promise</Text>
+        <Text style={styles.subtitle}>Join Sister's Promise</Text>
 
         {error && <ErrorMessage message={error} />}
 

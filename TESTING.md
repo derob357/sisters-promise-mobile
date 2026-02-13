@@ -1,4 +1,4 @@
-# Testing Guide - Sisters Promise Mobile
+# Testing Guide - Sister's Promise Mobile
 
 This guide explains how to run tests, write new tests, and maintain test coverage.
 

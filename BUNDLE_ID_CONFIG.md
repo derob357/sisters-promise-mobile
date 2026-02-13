@@ -12,14 +12,14 @@
 - **Bundle Identifier:** `com.sisterspromise.app`
 - **Location:** Xcode project settings
 - **Status:** ✅ Active
-- **App Name:** Sisters Promise
-- **Display Name:** Sisters Promise (as seen on device)
+- **App Name:** Sister's Promise
+- **Display Name:** Sister's Promise (as seen on device)
 
 ### Android (Google)
 - **Package Name:** `com.sisterspromise.app`
 - **Location:** app/build.gradle
 - **Status:** ✅ Configured
-- **App Name:** Sisters Promise
+- **App Name:** Sister's Promise
 
 ---
 
@@ -91,7 +91,7 @@ Xcode → Project Settings → SistersPromiseMobile Target
 - Go to: https://appstoreconnect.apple.com
 - Click: "+ Apps" button
 - Bundle ID: `com.sisterspromise.app` ✅ (already created)
-- App Name: Sisters Promise
+- App Name: Sister's Promise
 - Primary Language: English
 - Category: Health & Fitness (or Shopping)
 
@@ -141,7 +141,7 @@ Product → Archive → Distribute App → App Store
 
 ✅ **App Naming**
 - App Name (technical): SistersPromiseMobile
-- Display Name: Sisters Promise
+- Display Name: Sister's Promise
 - Bundle: com.sisterspromise.app
 
 ✅ **App Store Compliance**

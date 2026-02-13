@@ -1,6 +1,6 @@
-# Sisters Promise Mobile App
+# Sister's Promise Mobile App
 
-This is the React Native mobile application for Sisters Promise, available on iOS and Android.
+This is the React Native mobile application for Sister's Promise, available on iOS and Android.
 
 ## Project Structure
 
@@ -223,7 +223,7 @@ For issues or questions:
 
 ## License
 
-© 2026 Sisters Promise. All rights reserved.
+© 2026 Sister's Promise. All rights reserved.
 
 ## Step 2: Build and run your app
 
