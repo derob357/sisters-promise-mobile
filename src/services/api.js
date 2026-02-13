@@ -15,7 +15,7 @@ import logger from '../utils/logger';
 // Using HTTP for local development to avoid self-signed certificate issues
 const API_BASE_URL = __DEV__
   ? 'http://localhost:3000'
-  : (process.env.API_BASE_URL || 'https://sisters-promise.vercel.app');
+  : (process.env.API_BASE_URL || 'https://sisterspromise.com');
 
 logger.log('[API] Configured base URL:', API_BASE_URL);
 
