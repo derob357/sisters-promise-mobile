@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Create a placeholder bridge and root view.
 #if DEBUG
 #if !targetEnvironment(simulator)
-// Automatically set Metro server host to your Mac's IP when running on device
-UserDefaults.standard.set("158.111.21.76", forKey: debugDevServerHostKey)
+// To run on a physical device, set your Mac's IP here or via Settings.bundle:
+// UserDefaults.standard.set("YOUR_MAC_IP", forKey: debugDevServerHostKey)
 #endif
 #endif
     let bridge = RCTBridge(delegate: self, launchOptions: launchOptions)

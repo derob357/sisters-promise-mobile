@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Sister's Promise Mobile is a React Native e-commerce application for iOS and Android. Built with React Native 0.83.1, React 19.2.0, and TypeScript 5.8.3.
+Sister's Promise Mobile is a React Native e-commerce application for iOS and Android. Built with React Native 0.73.7, React 18.2.0, and TypeScript.
 
 ## Common Commands
 
