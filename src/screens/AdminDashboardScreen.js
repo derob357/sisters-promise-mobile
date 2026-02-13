@@ -166,6 +166,20 @@ const AdminDashboardScreen = ({ navigation }) => {
             <Icon name="chevron-forward" size={24} color="#CCC" />
           </TouchableOpacity>
 
+          <TouchableOpacity
+            style={styles.actionCard}
+            onPress={() => navigation.navigate('AdminRewards')}
+          >
+            <Icon name="gift-outline" size={24} color="#FF9800" />
+            <View style={styles.actionContent}>
+              <Text style={styles.actionTitle}>Manage Rewards</Text>
+              <Text style={styles.actionDescription}>
+                Offers, bundles, and loyalty stats
+              </Text>
+            </View>
+            <Icon name="chevron-forward" size={24} color="#CCC" />
+          </TouchableOpacity>
+
           {isOwner && (
             <TouchableOpacity
               style={styles.actionCard}

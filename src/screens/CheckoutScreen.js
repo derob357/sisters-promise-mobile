@@ -14,6 +14,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { CartContext } from '../context/CartContext';
+import { useRewards } from '../context/RewardsContext';
 import { Header, Button, ErrorMessage, CartItem, Spinner } from '../components/CommonComponents';
 import analyticsService from '../services/analyticsService';
 import api from '../services/api';
@@ -22,6 +23,7 @@ import logger from '../utils/logger';
 const CheckoutScreen = ({ route, navigation }) => {
   const { cart, total } = route.params || {};
   const { clearCart } = useContext(CartContext);
+  const { addPoints } = useRewards();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -75,6 +77,16 @@ const CheckoutScreen = ({ route, navigation }) => {
           amount: total,
           itemCount: cart.length,
         });
+
+        // Update rewards points
+        try {
+          const rewardsResult = await addPoints(total, cart.length);
+          if (rewardsResult?.giftJustEarned) {
+            logger.log('User earned a free gift!');
+          }
+        } catch (rewardsErr) {
+          logger.error('Failed to update rewards:', rewardsErr);
+        }
 
         // Clear cart
         await clearCart();

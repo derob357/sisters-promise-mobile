@@ -16,8 +16,11 @@ import ProfileScreen from '../screens/ProfileScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import DataDeletionScreen from '../screens/DataDeletionScreen';
 import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
+import RewardsScreen from '../screens/RewardsScreen';
+import RewardsHistoryScreen from '../screens/RewardsHistoryScreen';
 import BlogScreen from '../screens/BlogScreen';
 import AdminDashboardScreen from '../screens/AdminDashboardScreen';
+import AdminRewardsScreen from '../screens/AdminRewardsScreen';
 import OrderManagementScreen from '../screens/OrderManagementScreen';
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +36,8 @@ const HomeStack = () => {
     >
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+      <Stack.Screen name="Rewards" component={RewardsScreen} />
+      <Stack.Screen name="RewardsHistory" component={RewardsHistoryScreen} />
     </Stack.Navigator>
   );
 };
@@ -90,6 +95,7 @@ const AdminStack = () => {
     >
       <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
       <Stack.Screen name="OrderManagement" component={OrderManagementScreen} />
+      <Stack.Screen name="AdminRewards" component={AdminRewardsScreen} />
     </Stack.Navigator>
   );
 };

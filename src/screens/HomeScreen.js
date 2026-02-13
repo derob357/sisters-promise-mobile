@@ -157,12 +157,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const handleRewardsPress = () => {
-    // Navigate to rewards details screen (future implementation)
-    Alert.alert(
-      'Your Rewards',
-      'Full rewards history and redemption coming soon! Keep shopping to earn more points and free gifts.',
-      [{ text: 'OK' }]
-    );
+    navigation.navigate('Rewards');
   };
 
   const handleOfferPress = (offer) => {
